@@ -17,7 +17,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import static org.springframework.data.mapping.Alias.ofNullable;
+import static java.util.Optional.ofNullable;
 
 
 @Component
