@@ -3,6 +3,7 @@ package com.crud.tasks.trello.client;
 import com.crud.tasks.domain.CreatedTrelloCard;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
+import com.crud.tasks.domain.TrelloListDto;
 import com.crud.tasks.trello.config.TrelloConfig;
 import org.junit.Before;
 import org.junit.Test;
@@ -94,28 +95,16 @@ public class TrelloClientTest {
     @Test
     public void shouldReturnEmptyList() throws URISyntaxException{
         //Given
-        TrelloCardDto trelloCardDto = new TrelloCardDto(
-                "Test task",
-                "Test Description",
-                "top",
-                "test_id"
-        );
+        TrelloBoardDto[] trelloBoards = new TrelloBoardDto[1];
+        List<TrelloListDto> list = new ArrayList<>();
+        trelloBoards[0] = new TrelloBoardDto("test_id", "test_board", new ArrayList<>());
+        URI uri = new URI("http://test.com/members/mfabijanczuk/boards?key=test&token=test&fields=name,id&lists=all");
+        // when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(null);
 
-        URI uri = new URI("http://test.com/cards?key=test&token=test&name=Test%20task&desc=Test%20Description&pos=top&idList=test_id");
-
-        CreatedTrelloCard createdTrelloCard = new CreatedTrelloCard(
-                "1",
-                "Test task",
-                "http://test.com"
-        );
-        when(restTemplate.postForObject(uri, null, CreatedTrelloCard.class)).thenReturn(null);
-
-        // When
+        //When
         List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();
-
-        // Then
+        //Then
         assertEquals(0, fetchedTrelloBoards.size());
-
     }
 
 }
