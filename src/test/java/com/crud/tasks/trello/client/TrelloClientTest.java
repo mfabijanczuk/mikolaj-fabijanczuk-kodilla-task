@@ -107,4 +107,12 @@ public class TrelloClientTest {
         assertEquals(0, fetchedTrelloBoards.size());
     }
 
+    @Test
+    public void testGetTrelloBoards() throws Exception {
+
+    }
+
+    @Test
+    public void testCreateNewCard() throws Exception {
+    }
 }
