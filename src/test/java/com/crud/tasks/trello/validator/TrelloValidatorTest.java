@@ -17,6 +17,10 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TrelloValidatorTest {
+    @Test
+    public void validateCard() throws Exception {
+    }
+
 
     @Autowired
     private TrelloValidator trelloValidator;
@@ -25,12 +29,13 @@ public class TrelloValidatorTest {
     @Test
     public void testValidateTrelloBoards() throws Exception {
         //Given
-        TrelloList trelloList = new TrelloList("1","test",true);
+        TrelloList trelloList = new TrelloList("1","test1",true);
         List<TrelloList> trelloLists = new ArrayList<>();
         trelloLists.add(trelloList);
-        TrelloBoard trelloBoard = new TrelloBoard("1","test", trelloLists);
+        TrelloBoard trelloBoard = new TrelloBoard("1","test1", trelloLists);
         List<TrelloBoard> trelloBoards = new ArrayList<>();
         trelloBoards.add(trelloBoard);
+        TrelloValidator trelloValidator = new TrelloValidator();
         //When
         List<TrelloBoard> validatedTrelloBoard = trelloValidator.validateTrelloBoards(trelloBoards);
         //Then
