@@ -17,6 +17,7 @@ public class MailCreatorService {
     @Qualifier("templateEngine")
     private TemplateEngine templateEngine;
 
+
     public String buildTrelloCardEmail(String message) {
         Context context = new Context();
         context.setVariable("message", message);
