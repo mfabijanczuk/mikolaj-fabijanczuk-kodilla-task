@@ -1,22 +1,18 @@
-package com.crud.tasksmanager.service;
+package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Mail;
-import com.crud.tasks.service.MailCreatorService;
-import com.crud.tasks.service.SimpleEmailService;
-import com.crud.tasksmanager.domain.Mail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
-import javax.mail.MessagingException;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleEmailServiceTest {
@@ -30,11 +26,11 @@ public class SimpleEmailServiceTest {
     @Mock
     private MailCreatorService mailCreatorService;
 
-
     @Test
-    public void shouldSendEmail() throws MessagingException {
+    public void shouldSendEmail() {
+
         //Given
-        Mail mail = new Mail("test@test.com", "Test","Test Message", "test");
+        Mail mail = new Mail("test@test.com", "Test Subject","Test Message", "Test Cc");
 
         MimeMessagePreparator createMimeMessage = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
@@ -44,5 +40,10 @@ public class SimpleEmailServiceTest {
             messageHelper.setCc(mail.getToCc());
         };
 
-       }
+        //When
+        simpleEmailService.send(mail);
+
+        //Then
+        verify(javaMailSender, times(1)).send(createMimeMessage);
+    }
 }
